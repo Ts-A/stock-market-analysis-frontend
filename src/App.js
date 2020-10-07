@@ -3,16 +3,20 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { Analysis } from './pages/Analysis';
 import { Home } from './pages/Home';
 import { Company } from './pages/Company';
+import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
 
-function App() {
+const App = () => {
   return (
       <Router>
-        <Switch>
-          <Redirect exact from="/" to="/home" />
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/analysis" component={Analysis} />
-          <Route exact path="/company" component={Company} />
-        </Switch>
+          <Navbar />
+          <Switch>
+            <Redirect exact from="/" to="/home" />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/analysis" component={Analysis} />
+            <Route exact path="/company" component={Company} />
+          </Switch>
+          <Footer />
       </Router>
   );
 }
