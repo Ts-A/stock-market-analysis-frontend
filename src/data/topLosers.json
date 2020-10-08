@@ -1,0 +1,54 @@
+﻿{
+    "topLosers": [
+        {
+            "Company Name": "Vedanta ",
+            "High": "127.15",
+            "Low": "111.1"
+        },
+        {
+            "Company Name": "Adani Enterpris ",
+            "High": "329.8",
+            "Low": "310.5"
+        },
+        {
+            "Company Name": "TATA Cons. Prod ",
+            "High": "508.3",
+            "Low": "485"
+        },
+        {
+            "Company Name": "GAIL ",
+            "High": "87.15",
+            "Low": "83.85"
+        },
+        {
+            "Company Name": "ONGC ",
+            "High": "71",
+            "Low": "68.25"
+        },
+        {
+            "Company Name": "Bosch ",
+            "High": "13,311.00",
+            "Low": "12,780.00"
+        },
+        {
+            "Company Name": "Muthoot Finance ",
+            "High": "1,189.65",
+            "Low": "1,140.70"
+        },
+        {
+            "Company Name": "Tata Power ",
+            "High": "56.5",
+            "Low": "53.75"
+        },
+        {
+            "Company Name": "Page Industries ",
+            "High": "21,435.00",
+            "Low": "20,650.00"
+        },
+        {
+            "Company Name": "RBL Bank ",
+            "High": "181",
+            "Low": "172.7"
+        }
+    ]
+}

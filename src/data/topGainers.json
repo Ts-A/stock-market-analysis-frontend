@@ -1,0 +1,54 @@
+﻿{
+    "topGainers": [
+        {
+            "Company Name": "Wipro ",
+            "High": "367.75",
+            "Low": "346.45"
+        },
+        {
+            "Company Name": "Cadila Health ",
+            "High": "438.7",
+            "Low": "414.2"
+        },
+        {
+            "Company Name": "Mindtree ",
+            "High": "1,589.90",
+            "Low": "1,415.05"
+        },
+        {
+            "Company Name": "Cipla ",
+            "High": "815.6",
+            "Low": "774.9"
+        },
+        {
+            "Company Name": "Vodafone Idea ",
+            "High": "9.2",
+            "Low": "8.55"
+        },
+        {
+            "Company Name": "Biocon ",
+            "High": "473.75",
+            "Low": "451.15"
+        },
+        {
+            "Company Name": "Apollo Hospital ",
+            "High": "2,256.90",
+            "Low": "2,187.85"
+        },
+        {
+            "Company Name": "TCS ",
+            "High": "2,885.00",
+            "Low": "2,800.00"
+        },
+        {
+            "Company Name": "UltraTechCement ",
+            "High": "4,360.00",
+            "Low": "4,214.00"
+        },
+        {
+            "Company Name": "Bharti Infratel ",
+            "High": "191.8",
+            "Low": "184.55"
+        }
+    ]
+}
