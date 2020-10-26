@@ -1,54 +1,54 @@
 ﻿{
-    "activeStock": [
-        {
-            "Company Name": "TCS ",
-            "High": "2,885.00",
-            "Low": "2,800.00"
-        },
-        {
-            "Company Name": "Wipro ",
-            "High": "367.75",
-            "Low": "346.45"
-        },
-        {
-            "Company Name": "Infosys ",
-            "High": "1,124.00",
-            "Low": "1,088.40"
-        },
-        {
-            "Company Name": "HCL Tech ",
-            "High": "879",
-            "Low": "844.5"
-        },
-        {
-            "Company Name": "Reliance ",
-            "High": "2,268.00",
-            "Low": "2,222.10"
-        },
-        {
-            "Company Name": "HDFC Bank ",
-            "High": "1,203.00",
-            "Low": "1,163.35"
-        },
-        {
-            "Company Name": "Bajaj Finance ",
-            "High": "3,388.00",
-            "Low": "3,302.00"
-        },
-        {
-            "Company Name": "Vedanta ",
-            "High": "127.15",
-            "Low": "111.1"
-        },
-        {
-            "Company Name": "IndusInd Bank ",
-            "High": "638.5",
-            "Low": "614.05"
-        },
-        {
-            "Company Name": "Dr Reddys Labs ",
-            "High": "5,214.80",
-            "Low": "5,056.00"
-        }
-    ]
+  "activeStock": [
+    {
+      "Company Name": "TCS ",
+      "High": "2,885.00",
+      "Low": "2,800.00"
+    },
+    {
+      "Company Name": "Wipro ",
+      "High": "367.75",
+      "Low": "346.45"
+    },
+    {
+      "Company Name": "Infosys ",
+      "High": "1,124.00",
+      "Low": "1,088.40"
+    },
+    {
+      "Company Name": "HCL Tech ",
+      "High": "879",
+      "Low": "844.5"
+    },
+    {
+      "Company Name": "Reliance ",
+      "High": "2,268.00",
+      "Low": "2,222.10"
+    },
+    {
+      "Company Name": "HDFC Bank ",
+      "High": "1,203.00",
+      "Low": "1,163.35"
+    },
+    {
+      "Company Name": "Bajaj Finance ",
+      "High": "3,388.00",
+      "Low": "3,302.00"
+    },
+    {
+      "Company Name": "Vedanta ",
+      "High": "127.15",
+      "Low": "111.1"
+    },
+    {
+      "Company Name": "IndusInd Bank ",
+      "High": "638.5",
+      "Low": "614.05"
+    },
+    {
+      "Company Name": "Dr Reddys Labs ",
+      "High": "5,214.80",
+      "Low": "5,056.00"
+    }
+  ]
 }

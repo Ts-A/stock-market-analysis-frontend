@@ -1,13 +1,7 @@
-import React from 'react';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Button
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
-import ShowChartIcon from '@material-ui/icons/ShowChart';
+import React from "react";
+import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import ShowChartIcon from "@material-ui/icons/ShowChart";
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +20,12 @@ export const Navbar = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" align="center" className={classes.title}>
-            <IconButton href="/" className={classes.menuButton} color="inherit" aria-label="menu">
+            <IconButton
+              href="/"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
               <ShowChartIcon />
             </IconButton>
             Stock Market Analysis
@@ -35,4 +34,4 @@ export const Navbar = () => {
       </AppBar>
     </div>
   );
-}
+};

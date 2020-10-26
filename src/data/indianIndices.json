@@ -1,64 +1,64 @@
 ﻿{
-    "indianIndices": [
-        {
-            "Name": "NIFTY 50",
-            "CURRENT VALUE": "11,834.60",
-            "CHANGE": "95.75",
-            "% CHG": "0.82"
-        },
-        {
-            "Name": "NIFTY NEXT 50",
-            "CURRENT VALUE": "27,489.00",
-            "CHANGE": "134.05",
-            "% CHG": "0.49"
-        },
-        {
-            "Name": "NIFTY Midcap 100",
-            "CURRENT VALUE": "17,146.35",
-            "CHANGE": "17.95",
-            "% CHG": "0.1"
-        },
-        {
-            "Name": "NIFTY MIDCAP 50",
-            "CURRENT VALUE": "4,735.05",
-            "CHANGE": "17.85",
-            "% CHG": "0.38"
-        },
-        {
-            "Name": "NIFTY 100",
-            "CURRENT VALUE": "11,925.40",
-            "CHANGE": "91.5",
-            "% CHG": "0.77"
-        },
-        {
-            "Name": "NIFTY 500",
-            "CURRENT VALUE": "9,711.80",
-            "CHANGE": "57.3",
-            "% CHG": "0.59"
-        },
-        {
-            "Name": "NIFTY AUTO",
-            "CURRENT VALUE": "8,183.70",
-            "CHANGE": "13.65",
-            "% CHG": "0.17"
-        },
-        {
-            "Name": "NIFTY BANK",
-            "CURRENT VALUE": "23,191.35",
-            "CHANGE": "226.55",
-            "% CHG": "0.99"
-        },
-        {
-            "Name": "NIFTY ENERGY",
-            "CURRENT VALUE": "14,780.15",
-            "CHANGE": "-134.25",
-            "% CHG": "-0.9"
-        },
-        {
-            "Name": "NIFTY FMCG",
-            "CURRENT VALUE": "30,136.05",
-            "CHANGE": "-32.75",
-            "% CHG": "-0.11"
-        }
-    ]
+  "indianIndices": [
+    {
+      "Name": "NIFTY 50",
+      "CURRENT VALUE": "11,834.60",
+      "CHANGE": "95.75",
+      "% CHG": "0.82"
+    },
+    {
+      "Name": "NIFTY NEXT 50",
+      "CURRENT VALUE": "27,489.00",
+      "CHANGE": "134.05",
+      "% CHG": "0.49"
+    },
+    {
+      "Name": "NIFTY Midcap 100",
+      "CURRENT VALUE": "17,146.35",
+      "CHANGE": "17.95",
+      "% CHG": "0.1"
+    },
+    {
+      "Name": "NIFTY MIDCAP 50",
+      "CURRENT VALUE": "4,735.05",
+      "CHANGE": "17.85",
+      "% CHG": "0.38"
+    },
+    {
+      "Name": "NIFTY 100",
+      "CURRENT VALUE": "11,925.40",
+      "CHANGE": "91.5",
+      "% CHG": "0.77"
+    },
+    {
+      "Name": "NIFTY 500",
+      "CURRENT VALUE": "9,711.80",
+      "CHANGE": "57.3",
+      "% CHG": "0.59"
+    },
+    {
+      "Name": "NIFTY AUTO",
+      "CURRENT VALUE": "8,183.70",
+      "CHANGE": "13.65",
+      "% CHG": "0.17"
+    },
+    {
+      "Name": "NIFTY BANK",
+      "CURRENT VALUE": "23,191.35",
+      "CHANGE": "226.55",
+      "% CHG": "0.99"
+    },
+    {
+      "Name": "NIFTY ENERGY",
+      "CURRENT VALUE": "14,780.15",
+      "CHANGE": "-134.25",
+      "% CHG": "-0.9"
+    },
+    {
+      "Name": "NIFTY FMCG",
+      "CURRENT VALUE": "30,136.05",
+      "CHANGE": "-32.75",
+      "% CHG": "-0.11"
+    }
+  ]
 }

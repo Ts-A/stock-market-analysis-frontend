@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export const Company = () => {
-  return <div>Personalised Stock Review of the Company</div>
-}
+  return <div>Personalised Stock Review of the Company</div>;
+};

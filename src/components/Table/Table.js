@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Table,
   TableBody,
@@ -6,33 +6,41 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
-} from '@material-ui/core'
+  Paper,
+} from "@material-ui/core";
 
-const createTableHeader = ( dataHeader => dataHeader.map( item => <TableCell key={item} align="center">{item}</TableCell> ));
+const createTableHeader = (dataHeader) =>
+  dataHeader.map((item) => <TableCell key={item}>{item}</TableCell>);
 
-export const BasicTable = ( props ) => {
+export const BasicTable = (props) => {
   const { tableHeaders, tableData } = props.table;
   const TableHeader = () => {
-    return(
+    return (
       <TableHead>
         <TableRow>
-          {createTableHeader(tableHeaders)}
+          {tableHeaders ? createTableHeader(tableHeaders) : null}
         </TableRow>
       </TableHead>
-    )
-  }
+    );
+  };
   const TableContent = () => {
-    const mappedCell = tableData.map( item => 
-      <TableRow key={item}>
-        {item.map( i => <TableCell key={i}>{i}</TableCell> )}
-      </TableRow>) 
-    return(
-      <TableBody>
-        {mappedCell}
-      </TableBody>
-    )
-  }
+    const mappedCell = tableData
+      ? tableData.map((item) => (
+          <TableRow key={item}>
+            {item.map((i, index) =>
+              index === 0 ? (
+                <TableCell key={i}>{i}</TableCell>
+              ) : (
+                <TableCell align="center" key={i}>
+                  {i}
+                </TableCell>
+              )
+            )}
+          </TableRow>
+        ))
+      : null;
+    return <TableBody>{mappedCell}</TableBody>;
+  };
   return (
     <TableContainer component={Paper}>
       <Table aria-label="table">
@@ -41,4 +49,4 @@ export const BasicTable = ( props ) => {
       </Table>
     </TableContainer>
   );
-}
+};
