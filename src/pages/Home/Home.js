@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Container, Typography, Divider } from "@material-ui/core";
+import {
+  Grid,
+  Container,
+  Typography,
+  Divider,
+  IconButton,
+} from "@material-ui/core";
 import { BasicTable } from "../../components/Table";
 import { APIservice } from "../../api.service";
+import KeyboardArrowLeftRoundedIcon from "@material-ui/icons/KeyboardArrowLeftRounded";
+import KeyboardArrowRightRoundedIcon from "@material-ui/icons/KeyboardArrowRightRounded";
 
 const jsonDecoder = (jsonData) => {
   const tableHeaders = Object.keys(jsonData[0]);
@@ -10,6 +18,9 @@ const jsonDecoder = (jsonData) => {
 };
 
 export const Home = () => {
+  const [dataCount, setDataCount] = useState({ indexCount: 0, stockCount: 0 });
+  const [skipMA, setSkipMA] = useState(0);
+  const [skipIndex, setSkipIndex] = useState(0);
   const [topGainers, setTopGainers] = useState({
     tableHeaders: "",
     tableData: "",
@@ -30,7 +41,7 @@ export const Home = () => {
   });
   useEffect(() => {
     getData();
-  }, []);
+  }, [skipMA, skipIndex]);
   useEffect(() => {}, [
     topGainers,
     topLosers,
@@ -38,16 +49,21 @@ export const Home = () => {
     marketAction,
     active,
     potential,
+    dataCount,
+    skipMA,
+    skipIndex,
   ]);
   const getData = async () => {
     try {
+      const resultCount = await APIservice.getCount();
+      setDataCount(resultCount);
       const resultTopGainers = await APIservice.getTopGainers();
       setTopGainers(jsonDecoder(resultTopGainers));
       const resultTopLosers = await APIservice.getTopLosers();
       setTopLosers(jsonDecoder(resultTopLosers));
-      const resultMarketAction = [{}];
+      const resultMarketAction = await APIservice.getMarketAction(skipMA);
       setMarketAction(jsonDecoder(resultMarketAction));
-      const resultIndices = [{}];
+      const resultIndices = await APIservice.getIndices(skipIndex);
       setIndices(jsonDecoder(resultIndices));
       const resultActiveStocks = await APIservice.getMostActive();
       setActive(jsonDecoder(resultActiveStocks));
@@ -91,13 +107,42 @@ export const Home = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h5" align="center">
+              <IconButton
+                disabled={!Boolean(skipIndex)}
+                onClick={() => setSkipIndex((prev) => prev - 10)}
+              >
+                <KeyboardArrowLeftRoundedIcon />
+              </IconButton>
               INDICES
+              <IconButton
+                disabled={dataCount.indexCount - skipIndex < 10}
+                onClick={() => setSkipIndex((prev) => prev + 10)}
+              >
+                <KeyboardArrowRightRoundedIcon />
+              </IconButton>
             </Typography>
             <BasicTable table={indices} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" align="center">
+            <Typography
+              variant="h5"
+              display="block"
+              component="h5"
+              align="center"
+            >
+              <IconButton
+                disabled={!Boolean(skipMA)}
+                onClick={() => setSkipMA((prev) => prev - 10)}
+              >
+                <KeyboardArrowLeftRoundedIcon />
+              </IconButton>
               MARKET ACTION
+              <IconButton
+                disabled={dataCount.stockCount - skipIndex < 10}
+                onClick={() => setSkipMA((prev) => prev + 10)}
+              >
+                <KeyboardArrowRightRoundedIcon />
+              </IconButton>
             </Typography>
             <BasicTable table={marketAction} />
           </Grid>

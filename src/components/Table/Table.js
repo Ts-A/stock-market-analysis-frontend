@@ -10,7 +10,9 @@ import {
 } from "@material-ui/core";
 
 const createTableHeader = (dataHeader) =>
-  dataHeader.map((item) => <TableCell key={item}>{item}</TableCell>);
+  dataHeader.map((item) => (
+    <TableCell key={item}>{item.toUpperCase()}</TableCell>
+  ));
 
 export const BasicTable = (props) => {
   const { tableHeaders, tableData } = props.table;
@@ -29,10 +31,10 @@ export const BasicTable = (props) => {
           <TableRow key={item}>
             {item.map((i, index) =>
               index === 0 ? (
-                <TableCell key={i}>{i}</TableCell>
+                <TableCell key={i}>{i ? i : i === 0 ? i : "-x-"}</TableCell>
               ) : (
                 <TableCell align="center" key={i}>
-                  {i}
+                  {i ? i : i === 0 ? i : "-x-"}
                 </TableCell>
               )
             )}

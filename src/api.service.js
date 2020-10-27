@@ -2,13 +2,28 @@ import Axios from "axios";
 import { backendURL } from "./config";
 
 export const APIservice = {
-  async getIndices() {
+  async getCount() {
     try {
-      const response = await Axios.get(`${backendURL}/getIndices`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
+      const response = await Axios.get(`${backendURL}/getCount`, {
+        "Access-Control-Allow-Origin": "*",
       });
+      const { indexCount, stockCount } = response.data;
+      return { indexCount, stockCount };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  async getIndices(skip) {
+    try {
+      skip = skip ? skip : "0";
+      const response = await Axios.get(
+        `${backendURL}/getIndices?skip=${skip}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
       const data = [];
       response.data.data.forEach((item) => {
         let { name, open, close, high, low } = item;
@@ -17,7 +32,7 @@ export const APIservice = {
       });
       return data;
     } catch (error) {
-      throw Error(error.message);
+      throw new Error(error.message);
     }
   },
   async getTopGainers() {
@@ -35,7 +50,7 @@ export const APIservice = {
       });
       return data;
     } catch (error) {
-      throw Error(error.message);
+      throw new Error(error.message);
     }
   },
   async getTopLosers() {
@@ -53,16 +68,20 @@ export const APIservice = {
       });
       return data;
     } catch (error) {
-      throw Error(error.message);
+      throw new Error(error.message);
     }
   },
-  async getMarketAction() {
+  async getMarketAction(skip) {
     try {
-      const response = await Axios.get(`${backendURL}/getStocks/marketAction`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
+      skip = skip ? skip : "0";
+      const response = await Axios.get(
+        `${backendURL}/getStocks/marketAction?skip=${skip}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
       const data = [];
       response.data.data.forEach((item) => {
         let { name, open, close, shares, trades } = item;
@@ -71,7 +90,7 @@ export const APIservice = {
       });
       return data;
     } catch (error) {
-      throw Error(error.message);
+      throw new Error(error.message);
     }
   },
   async getMostActive() {
@@ -89,7 +108,7 @@ export const APIservice = {
       });
       return data;
     } catch (error) {
-      throw Error(error.message);
+      throw new Error(error.message);
     }
   },
   async getUpwardPotential() {
@@ -110,7 +129,7 @@ export const APIservice = {
       });
       return data;
     } catch (error) {
-      throw Error(error.message);
+      throw new Error(error.message);
     }
   },
 };
