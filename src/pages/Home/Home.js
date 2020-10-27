@@ -10,6 +10,7 @@ import { BasicTable } from "../../components/Table";
 import { APIservice } from "../../api.service";
 import KeyboardArrowLeftRoundedIcon from "@material-ui/icons/KeyboardArrowLeftRounded";
 import KeyboardArrowRightRoundedIcon from "@material-ui/icons/KeyboardArrowRightRounded";
+import { Skeleton } from "@material-ui/lab";
 
 const jsonDecoder = (jsonData) => {
   const tableHeaders = Object.keys(jsonData[0]);
@@ -41,6 +42,7 @@ export const Home = () => {
   });
   useEffect(() => {
     getData();
+    // eslint-disable-next-line
   }, [skipMA, skipIndex]);
   useEffect(() => {}, [
     topGainers,
@@ -97,13 +99,21 @@ export const Home = () => {
             <Typography variant="h5" align="center">
               TOP GAINERS
             </Typography>
-            <BasicTable table={topGainers} />
+            {topGainers.tableData ? (
+              <BasicTable table={topGainers} />
+            ) : (
+              <Skeleton variant="rect" animation="wave" height="500px" />
+            )}
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h5" align="center">
               TOP LOSERS
             </Typography>
-            <BasicTable table={topLosers} />
+            {topLosers.tableData ? (
+              <BasicTable table={topLosers} />
+            ) : (
+              <Skeleton variant="rect" animation="wave" height="500px" />
+            )}
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h5" align="center">
@@ -121,7 +131,11 @@ export const Home = () => {
                 <KeyboardArrowRightRoundedIcon />
               </IconButton>
             </Typography>
-            <BasicTable table={indices} />
+            {indices.tableData ? (
+              <BasicTable table={indices} />
+            ) : (
+              <Skeleton variant="rect" animation="wave" height="500px" />
+            )}
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography
@@ -144,7 +158,11 @@ export const Home = () => {
                 <KeyboardArrowRightRoundedIcon />
               </IconButton>
             </Typography>
-            <BasicTable table={marketAction} />
+            {marketAction.tableData ? (
+              <BasicTable table={marketAction} />
+            ) : (
+              <Skeleton variant="rect" animation="wave" height="500px" />
+            )}
           </Grid>
         </Grid>
         <Typography
@@ -168,13 +186,21 @@ export const Home = () => {
             <Typography variant="h5" align="center">
               ACTIVE STOCKS
             </Typography>
-            <BasicTable table={active} />
+            {active.tableData ? (
+              <BasicTable table={active} />
+            ) : (
+              <Skeleton variant="rect" animation="wave" height="500px" />
+            )}
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h5" align="center">
               UPWARD POTENTIAL
             </Typography>
-            <BasicTable table={potential} />
+            {potential.tableData ? (
+              <BasicTable table={potential} />
+            ) : (
+              <Skeleton variant="rect" animation="wave" height="500px" />
+            )}
           </Grid>
         </Grid>
       </Container>

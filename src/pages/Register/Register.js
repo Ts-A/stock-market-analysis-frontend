@@ -1,5 +1,122 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  Grid,
+  Paper,
+  Typography,
+  FormControl,
+  TextField,
+  IconButton,
+  Button,
+} from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { makeStyles } from "@material-ui/styles";
+import { APIservice } from "../../api.service";
+import { useHistory } from "react-router-dom";
+
+const useStyles = makeStyles({
+  form: {
+    height: "455px",
+    width: "80%",
+    maxWidth: "500px",
+  },
+  title: {
+    margin: "40px 0 0",
+  },
+  fields: {
+    margin: "10px 5%",
+    width: "90%",
+  },
+});
 
 export const Register = () => {
-  return <div>Register page</div>;
+  const classes = useStyles();
+  const history = useHistory();
+  const [password, setPassword] = useState({
+    hidden: true,
+    value: "",
+  });
+  const [mail, setMail] = useState("");
+  const handleVisibility = () => {
+    setPassword({ ...password, hidden: !password.hidden });
+  };
+  const handleSubmit = async () => {
+    try {
+      const user = { mail, password: password.value };
+      console.log(user);
+      setMail("");
+      setPassword({ hidden: true, value: "" });
+      if (!Boolean(user.mail) || Boolean(user.mail) ^ Boolean(user.password))
+        throw new Error("Fill all the fields");
+      const data = await APIservice.register(user);
+      if (data.message.toLowerCase() === "success") history.push("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  return (
+    <Grid container justify="center" style={{ margin: "20px 0" }}>
+      <Paper
+        className={classes.form}
+        component={Grid}
+        container
+        item
+        xs={10}
+        sm={8}
+        md={6}
+        elevation={4}
+      >
+        <Grid container direction="column" justify="space-between" item>
+          <Typography
+            component={Grid}
+            item
+            className={classes.title}
+            align="center"
+            variant="h4"
+          >
+            Account Register
+          </Typography>
+          <Grid container direction="column" justify="center">
+            <FormControl className={classes.fields}>
+              <TextField
+                variant="outlined"
+                type="email"
+                fullWidth
+                label="E-Mail ID"
+                onChange={(event) => setMail(event.target.value)}
+              />
+            </FormControl>
+            <FormControl className={classes.fields}>
+              <TextField
+                variant="outlined"
+                label="Password"
+                fullWidth
+                type={password.hidden ? "password" : "text"}
+                onChange={(event) =>
+                  setPassword({ ...password, value: event.target.value })
+                }
+                InputProps={{
+                  endAdornment: (
+                    <IconButton onClick={() => handleVisibility()}>
+                      {password.hidden ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  ),
+                }}
+              />
+            </FormControl>
+          </Grid>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            endIcon={<SendIcon />}
+            onClick={handleSubmit}
+          >
+            Create
+          </Button>
+        </Grid>
+      </Paper>
+    </Grid>
+  );
 };

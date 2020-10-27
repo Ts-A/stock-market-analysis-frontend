@@ -29,15 +29,11 @@ export const BasicTable = (props) => {
     const mappedCell = tableData
       ? tableData.map((item) => (
           <TableRow key={item}>
-            {item.map((i, index) =>
-              index === 0 ? (
-                <TableCell key={i}>{i ? i : i === 0 ? i : "-x-"}</TableCell>
-              ) : (
-                <TableCell align="center" key={i}>
-                  {i ? i : i === 0 ? i : "-x-"}
-                </TableCell>
-              )
-            )}
+            {item.map((i, index) => (
+              <TableCell align="left" key={i}>
+                {i ? i : i === 0 ? i : "-x-"}
+              </TableCell>
+            ))}
           </TableRow>
         ))
       : null;

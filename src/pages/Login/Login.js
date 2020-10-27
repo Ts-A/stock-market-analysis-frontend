@@ -6,20 +6,33 @@ import {
   FormControl,
   TextField,
   IconButton,
-  FormHelperText,
+  Button,
 } from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { makeStyles } from "@material-ui/styles";
+import { APIservice } from "../../api.service";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   form: {
-    height: "360px",
+    height: "455px",
+    width: "80%",
+    maxWidth: "350px",
+  },
+  title: {
+    margin: "40px 0 0",
+  },
+  fields: {
+    margin: "10px 5%",
+    width: "90%",
   },
 });
 
 export const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [password, setPassword] = useState({
     hidden: true,
     value: "",
@@ -27,6 +40,20 @@ export const Login = () => {
   const [mail, setMail] = useState("");
   const handleVisibility = () => {
     setPassword({ ...password, hidden: !password.hidden });
+  };
+  const handleSubmit = async () => {
+    try {
+      const user = { mail, password: password.value };
+      // setMail("");
+      // setPassword({hidden:true,value:""});
+      if (!Boolean(user.mail) || Boolean(user.mail) ^ Boolean(user.password))
+        throw new Error("Fill all the fields");
+      const data = await APIservice.login(user);
+      console.log(data);
+      if (data.message.toLowerCase() === "success") history.push("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <Grid container justify="center" style={{ margin: "20px 0" }}>
@@ -40,38 +67,54 @@ export const Login = () => {
         md={6}
         elevation={4}
       >
-        <Typography component={Grid} item xs={12} align="center" variant="h4">
-          Account Login
-        </Typography>
-        <Grid direction="column" container item>
-          <FormControl>
-            <TextField
-              variant="outlined"
-              type="email"
-              fullWidth
-              label="E-Mail ID"
-              onChange={(event) => setMail(event.target.value)}
-            />
-          </FormControl>
-          <FormControl>
-            <TextField
-              variant="outlined"
-              label="Password"
-              fullWidth
-              type={password.hidden ? "password" : "text"}
-              onChange={(event) => setPassword(event.target.value)}
-              InputProps={{
-                endAdornment: (
-                  <IconButton onClick={handleVisibility}>
-                    {password.hidden ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                ),
-              }}
-            />
-            <FormHelperText>
-              {password.hidden ? null : "Password is visible"}
-            </FormHelperText>
-          </FormControl>
+        <Grid container direction="column" justify="space-between" item>
+          <Typography
+            component={Grid}
+            item
+            className={classes.title}
+            align="center"
+            variant="h4"
+          >
+            Account Login
+          </Typography>
+          <Grid container direction="column" justify="center">
+            <FormControl className={classes.fields}>
+              <TextField
+                variant="outlined"
+                type="email"
+                fullWidth
+                label="E-Mail ID"
+                onChange={(event) => setMail(event.target.value)}
+              />
+            </FormControl>
+            <FormControl className={classes.fields}>
+              <TextField
+                variant="outlined"
+                label="Password"
+                fullWidth
+                type={password.hidden ? "password" : "text"}
+                onChange={(event) =>
+                  setPassword({ ...password, value: event.target.value })
+                }
+                InputProps={{
+                  endAdornment: (
+                    <IconButton onClick={() => handleVisibility()}>
+                      {password.hidden ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  ),
+                }}
+              />
+            </FormControl>
+          </Grid>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            endIcon={<SendIcon />}
+            onClick={handleSubmit}
+          >
+            Send
+          </Button>
         </Grid>
       </Paper>
     </Grid>

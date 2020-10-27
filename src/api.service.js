@@ -132,4 +132,40 @@ export const APIservice = {
       throw new Error(error.message);
     }
   },
+  async createUser(user) {
+    try {
+      const response = await Axios.post(`${backendURL}/user`, user, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  async login(user) {
+    try {
+      const response = await Axios.post(`${backendURL}/login`, user, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  async register(user) {
+    try {
+      const response = await Axios.post(`${backendURL}/user`, user, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
 };
