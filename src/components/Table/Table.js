@@ -29,7 +29,7 @@ export const BasicTable = (props) => {
     const mappedCell = tableData
       ? tableData.map((item) => (
           <TableRow key={item}>
-            {item.map((i, index) => (
+            {item.map((i) => (
               <TableCell align="left" key={i}>
                 {i ? i : i === 0 ? i : "-x-"}
               </TableCell>

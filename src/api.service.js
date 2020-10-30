@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { backendURL } from "./config";
+import { backendURL, quandlURL, REACT_APP_QUANDL } from "./config";
 
 export const APIservice = {
   async getCount() {
@@ -164,6 +164,16 @@ export const APIservice = {
         },
       });
       return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  async getCompany(code) {
+    try {
+      const response = await Axios.get(
+        `${quandlURL}/${code}.json?api_key=${REACT_APP_QUANDL}`
+      );
+      return response?.data?.dataset;
     } catch (error) {
       throw new Error(error.message);
     }

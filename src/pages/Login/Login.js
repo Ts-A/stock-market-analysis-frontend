@@ -49,10 +49,9 @@ export const Login = () => {
       if (!Boolean(user.mail) || Boolean(user.mail) ^ Boolean(user.password))
         throw new Error("Fill all the fields");
       const data = await APIservice.login(user);
-      console.log(data);
       if (data.message.toLowerCase() === "success") history.push("/");
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
   return (

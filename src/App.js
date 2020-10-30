@@ -6,18 +6,22 @@ import { Company } from "./pages/Company";
 import { Navbar } from "./components/Navbar";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+import { ToastProvider } from "react-toast-notifications";
 
 const App = () => {
   return (
     <Router>
       <Navbar />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/analysis" component={Analysis} />
-        <Route exact path="/company" component={Company} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-      </Switch>
+      <ToastProvider>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/analysis" component={Analysis} />
+          <Route exact path="/company/:BOMcode" component={Company} />{" "}
+          {/*Type /company/BOM500002*/}
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+        </Switch>
+      </ToastProvider>
     </Router>
   );
 };
