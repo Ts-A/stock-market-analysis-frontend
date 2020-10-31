@@ -15,7 +15,6 @@ const App = () => {
       <ToastProvider>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/analysis" component={Analysis} />
           <Route exact path="/company/:BOMcode" component={Company} />{" "}
           {/*Type /company/BOM500002*/}
           <Route exact path="/login" component={Login} />
