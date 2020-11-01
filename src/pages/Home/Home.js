@@ -6,17 +6,12 @@ import {
   Divider,
   IconButton,
 } from "@material-ui/core";
-import { BasicTable } from "../../components/Table";
-import { APIservice } from "../../api.service";
+import { Skeleton } from "@material-ui/lab";
 import KeyboardArrowLeftRoundedIcon from "@material-ui/icons/KeyboardArrowLeftRounded";
 import KeyboardArrowRightRoundedIcon from "@material-ui/icons/KeyboardArrowRightRounded";
-import { Skeleton } from "@material-ui/lab";
-
-const jsonDecoder = (jsonData) => {
-  const tableHeaders = Object.keys(jsonData[0]);
-  const tableData = jsonData.map((item) => Object.values(item));
-  return { tableHeaders, tableData };
-};
+import { APIservice } from "../../api.service";
+import { jsonDecoder } from "../../script";
+import { BasicTable } from "../../components/Table";
 
 export const Home = () => {
   const [dataCount, setDataCount] = useState({ indexCount: 0, stockCount: 0 });
@@ -81,7 +76,7 @@ export const Home = () => {
         <Typography
           component={"h3"}
           variant="h3"
-          color="primary"
+          color="textPrimary"
           style={{ margin: "20px 0 5px 0" }}
           align="center"
         >

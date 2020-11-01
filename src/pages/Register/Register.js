@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Grid,
   Paper,
@@ -7,6 +7,7 @@ import {
   TextField,
   IconButton,
   Button,
+  Link,
 } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import Visibility from "@material-ui/icons/Visibility";
@@ -14,12 +15,13 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { makeStyles } from "@material-ui/styles";
 import { APIservice } from "../../api.service";
 import { useHistory } from "react-router-dom";
+import { userContext } from "../../context/userContext";
 
 const useStyles = makeStyles({
   form: {
     height: "455px",
     width: "80%",
-    maxWidth: "500px",
+    maxWidth: "350px",
   },
   title: {
     margin: "40px 0 0",
@@ -31,6 +33,7 @@ const useStyles = makeStyles({
 });
 
 export const Register = () => {
+  const { user, dispatch } = useContext(userContext);
   const classes = useStyles();
   const history = useHistory();
   const [password, setPassword] = useState({
@@ -50,73 +53,94 @@ export const Register = () => {
       if (!Boolean(user.mail) || Boolean(user.mail) ^ Boolean(user.password))
         throw new Error("Fill all the fields");
       const data = await APIservice.register(user);
-      if (data.message.toLowerCase() === "success") history.push("/");
+      if (data.message.toLowerCase() === "success") {
+        const userJSON = JSON.stringify(user);
+        localStorage.setItem("user", userJSON);
+        dispatch({ type: "ADD_USER", value: user });
+        history.push("/");
+      }
     } catch (error) {
       console.log(error.message);
     }
   };
   return (
-    <Grid container justify="center" style={{ margin: "20px 0" }}>
-      <Paper
-        className={classes.form}
-        component={Grid}
-        container
-        item
-        xs={10}
-        sm={8}
-        md={6}
-        elevation={4}
-      >
-        <Grid container direction="column" justify="space-between" item>
+    <>
+      {user ? (
+        history.push("/")
+      ) : (
+        <Grid container justify="center" style={{ margin: "20px 0" }}>
+          <Paper
+            className={classes.form}
+            component={Grid}
+            container
+            item
+            xs={10}
+            sm={8}
+            md={6}
+            elevation={4}
+          >
+            <Grid container direction="column" justify="space-between" item>
+              <Typography
+                component={Grid}
+                item
+                className={classes.title}
+                align="center"
+                variant="h4"
+              >
+                Account Register
+              </Typography>
+              <Grid container direction="column" justify="center">
+                <FormControl className={classes.fields}>
+                  <TextField
+                    variant="outlined"
+                    type="email"
+                    fullWidth
+                    label="E-Mail ID"
+                    onChange={(event) => setMail(event.target.value)}
+                  />
+                </FormControl>
+                <FormControl className={classes.fields}>
+                  <TextField
+                    variant="outlined"
+                    label="Password"
+                    fullWidth
+                    type={password.hidden ? "password" : "text"}
+                    onChange={(event) =>
+                      setPassword({ ...password, value: event.target.value })
+                    }
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton onClick={() => handleVisibility()}>
+                          {password.hidden ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      ),
+                    }}
+                  />
+                </FormControl>
+              </Grid>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                endIcon={<SendIcon />}
+                onClick={handleSubmit}
+              >
+                Create
+              </Button>
+            </Grid>
+          </Paper>
           <Typography
+            variant="subtitle1"
             component={Grid}
             item
-            className={classes.title}
+            xs={10}
             align="center"
-            variant="h4"
           >
-            Account Register
+            <Link href="/register">Already have an account? Login!</Link>
           </Typography>
-          <Grid container direction="column" justify="center">
-            <FormControl className={classes.fields}>
-              <TextField
-                variant="outlined"
-                type="email"
-                fullWidth
-                label="E-Mail ID"
-                onChange={(event) => setMail(event.target.value)}
-              />
-            </FormControl>
-            <FormControl className={classes.fields}>
-              <TextField
-                variant="outlined"
-                label="Password"
-                fullWidth
-                type={password.hidden ? "password" : "text"}
-                onChange={(event) =>
-                  setPassword({ ...password, value: event.target.value })
-                }
-                InputProps={{
-                  endAdornment: (
-                    <IconButton onClick={() => handleVisibility()}>
-                      {password.hidden ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  ),
-                }}
-              />
-            </FormControl>
-          </Grid>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            endIcon={<SendIcon />}
-            onClick={handleSubmit}
-          >
-            Create
-          </Button>
         </Grid>
-      </Paper>
-    </Grid>
+      )}{" "}
+      }{" "}
+    </>
   );
 };

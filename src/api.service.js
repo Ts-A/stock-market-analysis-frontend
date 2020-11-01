@@ -2,6 +2,17 @@ import Axios from "axios";
 import { backendURL, quandlURL, REACT_APP_QUANDL } from "./config";
 
 export const APIservice = {
+  async getCodes() {
+    try {
+      const response = await Axios.get(`${backendURL}/getCodes`, {
+        "Access-Control-Allow-Origin": "*",
+      });
+      const { indices, stocks } = response.data;
+      return { indices, stocks };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
   async getCount() {
     try {
       const response = await Axios.get(`${backendURL}/getCount`, {

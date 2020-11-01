@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Grid,
   Paper,
@@ -7,6 +7,7 @@ import {
   TextField,
   IconButton,
   Button,
+  Link,
 } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import Visibility from "@material-ui/icons/Visibility";
@@ -14,6 +15,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { makeStyles } from "@material-ui/styles";
 import { APIservice } from "../../api.service";
 import { useHistory } from "react-router-dom";
+import { userContext } from "../../context/userContext";
 
 const useStyles = makeStyles({
   form: {
@@ -31,6 +33,7 @@ const useStyles = makeStyles({
 });
 
 export const Login = () => {
+  const { user, dispatch } = useContext(userContext);
   const classes = useStyles();
   const history = useHistory();
   const [password, setPassword] = useState({
@@ -44,78 +47,98 @@ export const Login = () => {
   const handleSubmit = async () => {
     try {
       const user = { mail, password: password.value };
-      // setMail("");
-      // setPassword({hidden:true,value:""});
+      setMail("");
+      setPassword({ hidden: true, value: "" });
       if (!Boolean(user.mail) || Boolean(user.mail) ^ Boolean(user.password))
         throw new Error("Fill all the fields");
       const data = await APIservice.login(user);
-      if (data.message.toLowerCase() === "success") history.push("/");
+      if (data.message.toLowerCase() === "success") {
+        const userJSON = JSON.stringify(user);
+        localStorage.setItem("user", userJSON);
+        dispatch({ type: "ADD_USER", value: user });
+        history.push("/");
+      }
     } catch (error) {
       console.error(error.message);
     }
   };
   return (
-    <Grid container justify="center" style={{ margin: "20px 0" }}>
-      <Paper
-        className={classes.form}
-        component={Grid}
-        container
-        item
-        xs={10}
-        sm={8}
-        md={6}
-        elevation={4}
-      >
-        <Grid container direction="column" justify="space-between" item>
+    <>
+      {user ? (
+        history.push("/")
+      ) : (
+        <Grid container justify="center" style={{ margin: "20px 0" }}>
+          <Paper
+            className={classes.form}
+            component={Grid}
+            container
+            item
+            xs={10}
+            sm={8}
+            md={6}
+            elevation={4}
+          >
+            <Grid container direction="column" justify="space-between" item>
+              <Typography
+                component={Grid}
+                item
+                className={classes.title}
+                align="center"
+                variant="h4"
+              >
+                Account Login
+              </Typography>
+              <Grid container direction="column" justify="center">
+                <FormControl className={classes.fields}>
+                  <TextField
+                    variant="outlined"
+                    type="email"
+                    fullWidth
+                    label="E-Mail ID"
+                    onChange={(event) => setMail(event.target.value)}
+                  />
+                </FormControl>
+                <FormControl className={classes.fields}>
+                  <TextField
+                    variant="outlined"
+                    label="Password"
+                    fullWidth
+                    type={password.hidden ? "password" : "text"}
+                    onChange={(event) =>
+                      setPassword({ ...password, value: event.target.value })
+                    }
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton onClick={() => handleVisibility()}>
+                          {password.hidden ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      ),
+                    }}
+                  />
+                </FormControl>
+              </Grid>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                endIcon={<SendIcon />}
+                onClick={handleSubmit}
+              >
+                Send
+              </Button>
+            </Grid>
+          </Paper>
           <Typography
+            variant="subtitle1"
             component={Grid}
             item
-            className={classes.title}
+            xs={10}
             align="center"
-            variant="h4"
           >
-            Account Login
+            <Link href="/register">New here? Sign up then!</Link>
           </Typography>
-          <Grid container direction="column" justify="center">
-            <FormControl className={classes.fields}>
-              <TextField
-                variant="outlined"
-                type="email"
-                fullWidth
-                label="E-Mail ID"
-                onChange={(event) => setMail(event.target.value)}
-              />
-            </FormControl>
-            <FormControl className={classes.fields}>
-              <TextField
-                variant="outlined"
-                label="Password"
-                fullWidth
-                type={password.hidden ? "password" : "text"}
-                onChange={(event) =>
-                  setPassword({ ...password, value: event.target.value })
-                }
-                InputProps={{
-                  endAdornment: (
-                    <IconButton onClick={() => handleVisibility()}>
-                      {password.hidden ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  ),
-                }}
-              />
-            </FormControl>
-          </Grid>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            endIcon={<SendIcon />}
-            onClick={handleSubmit}
-          >
-            Send
-          </Button>
         </Grid>
-      </Paper>
-    </Grid>
+      )}
+    </>
   );
 };

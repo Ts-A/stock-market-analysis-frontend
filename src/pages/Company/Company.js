@@ -9,6 +9,7 @@ export const Company = () => {
   const [data, setData] = useState(undefined);
   const getData = async () => {
     try {
+      setData(undefined);
       let response = await APIservice.getCompany(params.BOMcode);
       setData(response);
     } catch (error) {
@@ -18,7 +19,7 @@ export const Company = () => {
   useEffect(() => {
     getData();
     // eslint-disable-next-line
-  }, []);
+  }, [params]);
   useEffect(() => {}, [data]);
   return (
     <div>

@@ -127,7 +127,7 @@ export const Canvas = (props) => {
   const containerProps = {
     width: "80%",
     height: "450px",
-    margin: "auto",
+    margin: "30px auto 0",
   };
   return (
     <div>
