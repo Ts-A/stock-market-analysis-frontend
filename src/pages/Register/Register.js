@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/styles";
 import { APIservice } from "../../api.service";
 import { useHistory } from "react-router-dom";
 import { userContext } from "../../context/userContext";
+import { useToasts } from "react-toast-notifications";
 
 const useStyles = makeStyles({
   form: {
@@ -33,6 +34,8 @@ const useStyles = makeStyles({
 });
 
 export const Register = () => {
+  const { addToast } = useToasts();
+  let regex = new RegExp(`^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$`);
   const { user, dispatch } = useContext(userContext);
   const classes = useStyles();
   const history = useHistory();
@@ -47,20 +50,21 @@ export const Register = () => {
   const handleSubmit = async () => {
     try {
       const user = { mail, password: password.value };
-      console.log(user);
       setMail("");
       setPassword({ hidden: true, value: "" });
       if (!Boolean(user.mail) || Boolean(user.mail) ^ Boolean(user.password))
         throw new Error("Fill all the fields");
+      if (!regex.test(user.mail)) throw new Error("Invalid Mail ID");
       const data = await APIservice.register(user);
       if (data.message.toLowerCase() === "success") {
+        addToast(`Welcome, ${user.mail}`, { appearance: "success" });
         const userJSON = JSON.stringify(user);
         localStorage.setItem("user", userJSON);
         dispatch({ type: "ADD_USER", value: user });
         history.push("/");
       }
     } catch (error) {
-      console.log(error.message);
+      addToast(error.message, { appearance: "error" });
     }
   };
   return (
@@ -94,6 +98,7 @@ export const Register = () => {
                   <TextField
                     variant="outlined"
                     type="email"
+                    value={mail}
                     fullWidth
                     label="E-Mail ID"
                     onChange={(event) => setMail(event.target.value)}
@@ -103,6 +108,7 @@ export const Register = () => {
                   <TextField
                     variant="outlined"
                     label="Password"
+                    value={password.value}
                     fullWidth
                     type={password.hidden ? "password" : "text"}
                     onChange={(event) =>

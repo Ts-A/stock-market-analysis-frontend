@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/styles";
 import { APIservice } from "../../api.service";
 import { useHistory } from "react-router-dom";
 import { userContext } from "../../context/userContext";
+import { useToasts } from "react-toast-notifications";
 
 const useStyles = makeStyles({
   form: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles({
 });
 
 export const Login = () => {
+  const { addToast } = useToasts();
   const { user, dispatch } = useContext(userContext);
   const classes = useStyles();
   const history = useHistory();
@@ -49,17 +51,19 @@ export const Login = () => {
       const user = { mail, password: password.value };
       setMail("");
       setPassword({ hidden: true, value: "" });
+      document.querySelector("#id");
       if (!Boolean(user.mail) || Boolean(user.mail) ^ Boolean(user.password))
         throw new Error("Fill all the fields");
       const data = await APIservice.login(user);
       if (data.message.toLowerCase() === "success") {
+        addToast(`Welcome back, ${user.mail}`, { appearance: "success" });
         const userJSON = JSON.stringify(user);
         localStorage.setItem("user", userJSON);
         dispatch({ type: "ADD_USER", value: user });
         history.push("/");
       }
     } catch (error) {
-      console.error(error.message);
+      addToast(error.message, { appearance: "error" });
     }
   };
   return (
@@ -93,6 +97,8 @@ export const Login = () => {
                   <TextField
                     variant="outlined"
                     type="email"
+                    id="mail"
+                    value={mail}
                     fullWidth
                     label="E-Mail ID"
                     onChange={(event) => setMail(event.target.value)}
@@ -102,6 +108,8 @@ export const Login = () => {
                   <TextField
                     variant="outlined"
                     label="Password"
+                    id="password"
+                    value={password.value}
                     fullWidth
                     type={password.hidden ? "password" : "text"}
                     onChange={(event) =>

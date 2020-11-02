@@ -11,6 +11,7 @@ import ShowChartIcon from "@material-ui/icons/ShowChart";
 import { useHistory } from "react-router-dom";
 import { userContext } from "../../context/userContext";
 import { FormDialog } from "../Dialog";
+import { useToasts } from "react-toast-notifications";
 
 const useStyles = makeStyles({
   root: {
@@ -22,10 +23,12 @@ const useStyles = makeStyles({
 });
 
 export const Navbar = () => {
+  const { addToast } = useToasts();
   const { user, dispatch } = useContext(userContext);
   const history = useHistory();
   const classes = useStyles();
   const handleLogout = () => {
+    addToast(`Logged out`, { appearance: "info" });
     localStorage.clear();
     dispatch({ type: "REMOVE_USER" });
     history.push("/");

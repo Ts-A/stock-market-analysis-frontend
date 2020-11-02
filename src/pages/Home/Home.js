@@ -12,8 +12,10 @@ import KeyboardArrowRightRoundedIcon from "@material-ui/icons/KeyboardArrowRight
 import { APIservice } from "../../api.service";
 import { jsonDecoder } from "../../script";
 import { BasicTable } from "../../components/Table";
+import { useToasts } from "react-toast-notifications";
 
 export const Home = () => {
+  const { addToast } = useToasts();
   const [dataCount, setDataCount] = useState({ indexCount: 0, stockCount: 0 });
   const [skipMA, setSkipMA] = useState(0);
   const [skipIndex, setSkipIndex] = useState(0);
@@ -67,7 +69,7 @@ export const Home = () => {
       const resultUpPotential = await APIservice.getUpwardPotential();
       setPotential(jsonDecoder(resultUpPotential));
     } catch (error) {
-      console.log(error.message);
+      addToast(error.message, { appearance: "error" });
     }
   };
   return (

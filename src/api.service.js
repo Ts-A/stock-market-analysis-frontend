@@ -164,6 +164,7 @@ export const APIservice = {
       });
       return response.data;
     } catch (error) {
+      console.log(error.response.data.message);
       throw new Error(error.message);
     }
   },

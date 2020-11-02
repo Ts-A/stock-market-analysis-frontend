@@ -12,8 +12,8 @@ const App = () => {
   return (
     <Router>
       <UserContextProvider>
-        <Navbar />
-        <ToastProvider>
+        <ToastProvider autoDismiss autoDismissTimeout={2000}>
+          <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/company" component={CompanyTable} />
