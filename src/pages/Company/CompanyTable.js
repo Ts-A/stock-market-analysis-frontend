@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, makeStyles } from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import { BasicTable } from "../../components/Table";
 import { APIservice } from "../../api.service";
@@ -38,20 +38,26 @@ export const CompanyTable = () => {
     <div>
       <Grid container justify="center">
         <Grid item sm={8} className={classes.table}>
+          <Typography variant="h5" color="textSecondary" align="center">
+            Indices
+          </Typography>
           {codes.indices.tableData ? (
             <BasicTable table={codes.indices} />
           ) : (
             <Skeleton variant="rect" animation="wave" height="500px" />
-          )}
-        </Grid>
+          )}{" "}
+        </Grid>{" "}
         <Grid item sm={8} className={classes.table}>
+          <Typography variant="h5" color="textSecondary" align="center">
+            Stocks
+          </Typography>
           {codes.stocks.tableData ? (
             <BasicTable table={codes.stocks} />
           ) : (
             <Skeleton variant="rect" animation="wave" height="500px" />
-          )}
-        </Grid>
-      </Grid>
+          )}{" "}
+        </Grid>{" "}
+      </Grid>{" "}
     </div>
   );
 };
